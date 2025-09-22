@@ -1,0 +1,171 @@
+.grid-container {
+  display: grid;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  gap: 1px;
+  width: 100%;
+  max-width: min(90vw, 800px);
+  aspect-ratio: var(--grid-cols) / var(--grid-rows);
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  /* Enhanced glow effect */
+  box-shadow: 
+    0 0 30px 5px var(--glow-color, rgba(0, 255, 132, 0.2)),
+    inset 0 0 50px rgba(255, 255, 255, 0.02),
+    0 10px 40px rgba(0, 0, 0, 0.6);
+  
+  transition: box-shadow 300ms ease-in-out;
+}
+
+/* Animated border effect */
+.grid-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    var(--glow-color, rgba(0, 255, 132, 0.3)),
+    transparent,
+    var(--glow-color, rgba(0, 255, 132, 0.3)),
+    transparent
+  );
+  border-radius: 18px;
+  z-index: -1;
+  animation: borderGlow 4s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* Subtle grid overlay effect */
+.grid-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 
+    calc(100% / var(--grid-cols)) calc(100% / var(--grid-rows));
+  pointer-events: none;
+  border-radius: 16px;
+}
+
+.cell {
+  width: 100%;
+  height: 100%;
+  background-color: var(--cell-background);
+  border-radius: 3px;
+  position: relative;
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  
+  /* Default cell styling */
+  background: linear-gradient(135deg, 
+    rgba(26, 26, 26, 0.9), 
+    rgba(40, 40, 40, 0.7)
+  );
+  
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced cell hover effect */
+.cell:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Active/lit cell effects */
+.cell[style*="background-color: hsl"] {
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* Pulse animation for very bright cells */
+.cell[style*="50%"], .cell[style*="60%"] {
+  animation: cellPulse 2s ease-in-out infinite;
+}
+
+@keyframes cellPulse {
+  0%, 100% { transform: scale(1.02); }
+  50% { transform: scale(1.08); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-container {
+    max-width: 95vw;
+    padding: 15px;
+    gap: 0.5px;
+  }
+  
+  .cell {
+    border-radius: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    padding: 10px;
+    border-radius: 12px;
+  }
+  
+  .cell {
+    border-radius: 1px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .grid-container {
+    border: 2px solid #fff;
+    box-shadow: none;
+  }
+  
+  .cell {
+    border: 1px solid #333;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .grid-container::before {
+    animation: none;
+  }
+  
+  .cell {
+    transition: none;
+  }
+  
+  .cell:hover {
+    transform: none;
+  }
+  
+  @keyframes cellPulse {
+    0%, 100% { transform: none; }
+  }
+}
