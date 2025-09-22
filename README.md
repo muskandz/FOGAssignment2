@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌊 FOG Scanner - Interactive Wave Pattern Visualizer
 
 A cutting-edge, interactive wave pattern visualizer built with React and Vite. This application showcases advanced animation techniques, real-time pattern generation, and modern web development practices.
@@ -405,3 +406,7 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+=======
+# FOGAssignment2
+Waveform Visualizer
+>>>>>>> 1f78fa44c98aafbe9af6f76505bb1211878074c7
